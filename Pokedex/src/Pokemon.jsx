@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-
+import "./index.css";
 import { PokemonCards } from "./PokemonCards";
-
+import styled from 'styled-components';
 export const Pokemon = () => {
   const [pokemon, setPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +51,33 @@ export const Pokemon = () => {
   return (
     <>
       <section className="container">
-
+        {/* <header>
+          <ImageTitle>
+            <img src="/fontbolt.png" alt="Title" />
+          </ImageTitle>
+        </header> */}
+        <header>
+  <HeaderContainer>
+    {/* Left corner image */}
+    <CornerImage 
+      src="/pokeball.png" 
+      alt="Left decoration" 
+      className="left" 
+    />
+    
+    {/* Centered title */}
+    <ImageTitle>
+      <img  src="/fontbolt.png" alt="Pokémon Title" />
+    </ImageTitle>
+    
+    {/* Right corner image */}
+    <CornerImage 
+      src="/pokeball.png" 
+      alt="Right decoration" 
+      className="right" 
+    />
+  </HeaderContainer>
+</header>
         <div className="pokemon-search">
           <input
             type="text"
@@ -88,3 +114,41 @@ export const Pokemon = () => {
   );
 };
 
+const ImageTitle = styled.div`
+  text-align: center;
+  margin: 20px 0;
+  
+  img {
+    height: auto; 
+    width: auto;  
+    max-width: 100%; 
+    max-height: 100px; 
+    object-fit: contain;
+    filter: drop-shadow(2px 2px 4px rgb(59, 165, 172));
+  }
+`;
+
+const HeaderContainer = styled.header`
+  position: relative; 
+  text-align: center;
+  padding: 20px 60px; 
+`;
+
+const CornerImage = styled.img`
+  position: absolute;
+  top:4rem;
+  height: 90px; 
+  width: auto;
+  filter: drop-shadow(2px 2px 4px rgb(59, 165, 172));
+
+  &.left {
+    left: 2rem;
+  }
+ 
+  &.right {
+    right: 2rem;
+  }
+    @media (max-width: 900px) {
+    display: none;
+  }
+`;
