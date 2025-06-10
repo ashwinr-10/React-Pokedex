@@ -2,13 +2,22 @@ import { useEffect, useState } from "react";
 import "./index.css";
 import { PokemonCards } from "./PokemonCards";
 import styled from 'styled-components';
+
 export const Pokemon = () => {
   const [pokemon, setPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+  const [selectedType, setSelectedType] = useState("all");
 
-
+const filterButtons = [
+    { name: "All", type: "all" },
+    { name: "Fire", type: "fire" },
+    { name: "Water", type: "water" },
+    { name: "Grass", type: "grass" },
+    { name: "Electric", type: "electric" },
+    { name: "Poison", type: "poison" },
+  ];
 
 
   const API = "https://pokeapi.co/api/v2/pokemon?limit=124";
@@ -36,9 +45,20 @@ export const Pokemon = () => {
     fetchPokemon();
   }, []);
 
+  const filterPokemon = (type) => {
+    setSelectedType(type);
+  };
 
-
-  
+  const filteredPokemon = pokemon.filter((curPokemon) => {
+    const matchesSearch = curPokemon.name.toLowerCase().includes(search.toLowerCase());
+    
+    if (selectedType === "all") {
+      return matchesSearch;
+    }
+    
+    return matchesSearch && 
+      curPokemon.types.some(typeInfo => typeInfo.type.name === selectedType);
+  });
 
   if (loading) {
     return <div className="loader-container"><h1>Loading....</h1></div>;
@@ -51,11 +71,6 @@ export const Pokemon = () => {
   return (
     <>
       <section className="container">
-        {/* <header>
-          <ImageTitle>
-            <img src="/fontbolt.png" alt="Title" />
-          </ImageTitle>
-        </header> */}
         <header>
   <HeaderContainer>
     {/* Left corner image */}
@@ -101,7 +116,19 @@ export const Pokemon = () => {
           />
           
         </div>
-       
+        
+        <div className="filter-buttons">
+          {filterButtons.map((btn) => (
+            <button
+              key={btn.type}
+              className={selectedType === btn.type ? "active" : ""}
+              onClick={() => filterPokemon(btn.type)}
+            >
+              {btn.name}
+            </button>
+          ))}
+        </div>
+        
         <div>
           <ul className="cards">
             {filteredPokemon.map((curPokemon) => (

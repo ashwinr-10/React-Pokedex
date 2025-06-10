@@ -213,3 +213,56 @@ figure {
 .pokemon-info {
   text-align: center;
 }
+
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.filter-buttons button {
+  padding: 8px 16px;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-buttons button:hover {
+  background-color: #ddd;
+}
+
+.filter-buttons button.active {
+  background-color: #ff6347;
+  border: 1px solid #ffffff;
+  color: white;
+}
+
+@media (max-width: 1200px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 6rem;
+
+  }
+}
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 6rem;
+
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 6rem;
+
+  }
+}
+
